@@ -7,11 +7,11 @@ namespace Composer\Autoload;
 class ComposerStaticInit29a02fe77b128905741ff921ce351391
 {
     public static $files = array (
-        '3ca328bd13bcd1a5b955c9b078e10e22' => __DIR__ . '/../..' . '/src/Core/Config/Session.php',
-        'a43fa7b120b8d61d30b570e25f482c40' => __DIR__ . '/../..' . '/src/Routes/api.php',
-        'ba5d9fcc7d2eaceb57a529050d896798' => __DIR__ . '/../..' . '/src/Routes/web.php',
-        'd7186fb572cb6ee2766c37978a0cedb5' => __DIR__ . '/../..' . '/src/Core/Helpers/View.php',
-        '0bd2bfe40e36eb32b86d4105e78dd385' => __DIR__ . '/../..' . '/src/Core/Helpers/HttpResponse.php',
+        '9207295e6942b7723348e9f97aab2c1a' => __DIR__ . '/../..' . '/src/Core/Config/Session.php',
+        '0dfc2528c453bb758058c777ff54f676' => __DIR__ . '/../..' . '/src/Routes/api.php',
+        '2888c3c4fe715de0dae7e3653f554406' => __DIR__ . '/../..' . '/src/Routes/web.php',
+        '4e207b24274a942f4d9e9a5b52a9cd6e' => __DIR__ . '/../..' . '/src/Core/Helpers/View.php',
+        '593e4a11c53552524f96b9ad59fd4dc2' => __DIR__ . '/../..' . '/src/Core/Helpers/HttpResponse.php',
     );
 
     public static $prefixLengthsPsr4 = array (

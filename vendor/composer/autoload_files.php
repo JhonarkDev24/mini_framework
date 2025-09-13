@@ -6,9 +6,9 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    '3ca328bd13bcd1a5b955c9b078e10e22' => $baseDir . '/src/Core/Config/Session.php',
-    'a43fa7b120b8d61d30b570e25f482c40' => $baseDir . '/src/Routes/api.php',
-    'ba5d9fcc7d2eaceb57a529050d896798' => $baseDir . '/src/Routes/web.php',
-    'd7186fb572cb6ee2766c37978a0cedb5' => $baseDir . '/src/Core/Helpers/View.php',
-    '0bd2bfe40e36eb32b86d4105e78dd385' => $baseDir . '/src/Core/Helpers/HttpResponse.php',
+    '9207295e6942b7723348e9f97aab2c1a' => $baseDir . '/src/Core/Config/Session.php',
+    '0dfc2528c453bb758058c777ff54f676' => $baseDir . '/src/Routes/api.php',
+    '2888c3c4fe715de0dae7e3653f554406' => $baseDir . '/src/Routes/web.php',
+    '4e207b24274a942f4d9e9a5b52a9cd6e' => $baseDir . '/src/Core/Helpers/View.php',
+    '593e4a11c53552524f96b9ad59fd4dc2' => $baseDir . '/src/Core/Helpers/HttpResponse.php',
 );

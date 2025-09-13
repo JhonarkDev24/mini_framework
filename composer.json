@@ -1,5 +1,5 @@
 {
-    "name": "it-jhonry/entry-tracking-api",
+    "name": "custom/mini-framework",
     "autoload": {
         "psr-4": {
             "App\\": "src/"
