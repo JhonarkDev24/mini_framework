@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core;
+namespace EntryTrackingApi\Core;
 
 class Request {
     public $method; 
@@ -14,6 +14,14 @@ class Request {
         $this->query  = $_GET;
         $this->body   = $_POST;
 
+        if (empty($this->body)) {
+            $rawInput = file_get_contents("php://input");
+            $json = json_decode($rawInput, true);
+            if (json_last_error() === JSON_ERROR_NONE) {
+                $this->body = $json;
+            }
+        }
+
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
@@ -23,6 +31,10 @@ class Request {
         return $this->body[$key] 
             ?? $this->query[$key] 
             ?? $default;
+    }
+
+    public function allInputs() {
+        return array_merge($this->query, $this->body);
     }
 
     public function session($key = null, $default = null) {

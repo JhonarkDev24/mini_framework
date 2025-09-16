@@ -2,21 +2,24 @@
 
 namespace App\Core\Database\Models;
 
-use App\Core\Database\Database;
+use APp\Core\Database\Database;
 use PDO;
 
-class Model extends Database {
+class Model extends Database
+{
     protected $table = "";
     protected $query = "";
     protected $bindings = [];
 
-    public function all () {
+    public function all()
+    {
         $model = $this->getConnection();
         $stmt = $model->query("SELECT * FROM {$this->table}");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function select (string $columns = "*") {
+    public function select(string $columns = "*")
+    {
         $this->query = "";
         $this->bindings = [];
 
@@ -28,7 +31,8 @@ class Model extends Database {
         return $this;
     }
 
-    public function update (array $bindings) {
+    public function update(array $bindings)
+    {
         if (empty($bindings)) {
             throw new \InvalidArgumentException("Invalid Arguments");
         }
@@ -48,11 +52,12 @@ class Model extends Database {
         return $this;
     }
 
-    public function insert (array $bindings) {
+    public function insert(array $bindings)
+    {
         if (empty($bindings)) {
             throw new \InvalidArgumentException("Invalid Arguments");
         }
-        
+
         $this->query = "";
         $this->bindings = [];
         $count = 1;
@@ -74,9 +79,14 @@ class Model extends Database {
         return $this;
     }
 
-    public function where(array $bindings, string $operator = "AND") {
+    public function where (array $bindings, string $operator = "AND")
+    {
         if (empty($bindings)) {
             throw new \InvalidArgumentException("Invalid Arguments");
+        }
+
+        if ($this->query === "") {
+            $this->query = "SELECT * FROM {$this->table}";
         }
 
         $cols = [];
@@ -89,14 +99,47 @@ class Model extends Database {
             $count++;
         }
 
+        // Decide prefix: WHERE if none, otherwise the operator
         $prefix = stripos($this->query, "WHERE") === false ? " WHERE " : " $operator ";
-        $this->query .= $prefix . "(" . implode(" AND ", $cols) . ")";
+
+        // Use operator between bindings, remove parentheses for single binding
+        if (count($cols) === 1) {
+            $this->query .= $prefix . $cols[0];
+        } else {
+            $this->query .= $prefix . "(" . implode(" $operator ", $cols) . ")";
+        }
 
         return $this;
     }
 
+    public function whereIs (array $bindings, string $operator = "AND") {
+        if (empty($bindings)) {
+            throw new \InvalidArgumentException("Invalid Arguments");
+        }
 
-    public function get () {
+        if ($this->query === "") {
+            $this->query = "SELECT * FROM {$this->table}";
+        }
+
+        $cols = [];
+
+        foreach ($bindings as $key => $value) {
+            $cols[] = "$key IS " . strtoupper($value);
+        }
+
+        $prefix = stripos($this->query, "WHERE") === false ? " WHERE " : " $operator ";
+
+        if (count($cols) === 1) {
+            $this->query .= $prefix . $cols[0];
+        } else {
+            $this->query .= $prefix . "(" . implode(" $operator ", $cols) . ")";
+        }
+
+        return $this;
+    }
+
+    public function get()
+    {
         $pdo = $this->getConnection();
         $stmt = $pdo->prepare($this->query);
         $stmt->execute($this->bindings);
@@ -107,7 +150,8 @@ class Model extends Database {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function exec () {
+    public function exec()
+    {
         $model = $this->getConnection();
         $stmt = $model->prepare($this->query);
         $stmt->execute($this->bindings);
